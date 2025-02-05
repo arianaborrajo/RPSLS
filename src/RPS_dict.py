@@ -15,17 +15,17 @@ class GameResult(IntEnum):
     Tie = 2
 
 
-Victories = {
-    GameAction.Rock: GameAction.Paper,
-    GameAction.Paper: GameAction.Scissors,
-    GameAction.Scissors: GameAction.Rock
-}
+    Victories = {
+        GameAction.Rock: GameAction.Paper,
+        GameAction.Paper: GameAction.Scissors,
+        GameAction.Scissors: GameAction.Rock
+    }
 class Game:
     def __init__(self):
         self.user_action = ""
         self.computer_action = ""
         self.game_result = None
-
+        self.play_another_round = True
 
 
     def assess_game(self):
@@ -33,7 +33,7 @@ class Game:
         game_result = None
 
         if self.user_action == self.computer_action:
-            print(f"User and computer picked {self.user_action.name}. Draw game!")
+            print(f"User and computer picked {self.user_action}. Draw game!")
             game_result = GameResult.Tie
 
     
@@ -103,12 +103,9 @@ class IncorrectOptionException(Exception):
                 print(f"Invalid selection. Pick a choice in range {range_str}!")
                 continue
 
-            computer_action = self.get_computer_action()
-            assess_game(user_action, computer_action)
 
-            if not play_another_round():
+            if self.play_another_round()==False:
                 break
 
 
-if __name__ == "__main__":
-    main()
+
